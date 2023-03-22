@@ -62,3 +62,20 @@ The config that you've selected requires the following dependencies:
 # TO check syntax
 npx eslint . --ext .ts
 ```
+
+```bash
+cd backend
+npm i dotenv
+npm i mongoose
+```
+
+```bash
+# Utilitiy that allows us to require the definitions of our ENV Variables
+npm i envalid
+mkdir src/util
+touch src/util/validateEnv.ts
+```
+
+```bash
+touch src/app.ts
+```
