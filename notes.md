@@ -79,3 +79,11 @@ touch src/util/validateEnv.ts
 ```bash
 touch src/app.ts
 ```
+
+### MongoDB model setup + Express error handling (+ what is middleware)
+
+```bash
+cd backend
+mkdir ./src/models
+touch ./src/models/note.ts
+```
