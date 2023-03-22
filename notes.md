@@ -87,3 +87,19 @@ cd backend
 mkdir ./src/models
 touch ./src/models/note.ts
 ```
+
+```bash
+cd backend
+mkdir src/routes
+touch src/routes/notes.ts
+
+mkdir src/controllers
+touch src/controllers/notes.ts
+```
+
+```bash
+# install logging middleware
+cd backend
+npm i morgan #<= MAYBE SAVE AS A DEV DEPENDENCY?
+npm i --save-dev @types/morgan
+```

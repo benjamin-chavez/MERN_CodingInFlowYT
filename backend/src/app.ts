@@ -1,22 +1,32 @@
 import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
-import NoteModel from './models/note';
+// import NoteModel from './models/note';
+import notesRoutes from './routes/notes';
+import morgan from 'morgan';
 
 // app is basically our server
 const app = express();
 
-// Arrow Function - function without a name
-app.get('/', async (req, res, next) => {
-  // res.send('Hello World!!');
+// logging middleware
+app.use(morgan('dev'));
 
-  try {
-    // throw Error('Baszinga!');
-    const notes = await NoteModel.find().exec();
-    res.status(200).json(notes);
-  } catch (error) {
-    next(error);
-  }
-});
+// So that express can receive json bodies
+app.use(express.json());
+
+app.use('/api/notes', notesRoutes);
+
+// Arrow Function - function without a name
+// app.get('/', async (req, res, next) => {
+//   // res.send('Hello World!!');
+
+//   try {
+//     // throw Error('Baszinga!');
+//     const notes = await NoteModel.find().exec();
+//     res.status(200).json(notes);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 // app.get('/', (req: Request, res: Response) => {
 //   // This will run whenever the route gets hit
