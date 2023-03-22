@@ -11,3 +11,9 @@ npm audit fix --force
 ```bash
 npm i react-bootstrap bootstrap
 ```
+
+```bash
+cd frontend
+mkdir src/models
+touch src/models/note.ts
+```
