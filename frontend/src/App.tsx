@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 // import { Note } from './models/note';
 import { Note as NoteModel } from './models/note';
 import Note from './components/Note';
+import styles from './styles/NotesPage.module.css';
 
 function App() {
   // const [clickCount, setClickCount] = React.useState(0);
@@ -32,15 +33,21 @@ function App() {
   }, []);
 
   return (
-    <div>
-      {/* <Button onClick={() => setClickCount(clickCount + 1)}>
+    <Container>
+      <Row xs={1} md={2} lg={3} className="g-4">
+        {/* <Button onClick={() => setClickCount(clickCount + 1)}>
           Clicked {clickCount} Times
         </Button> */}
-      {/* {JSON.stringify(notes)} */}
-      {notes.map((note) => (
-        <Note note={note} key={note._id} />
-      ))}
-    </div>
+        {/* {JSON.stringify(notes)} */}
+
+        {notes.map((note) => (
+          // <Note note={note} key={note._id} />
+          <Col key={note._id}>
+            <Note note={note} className={styles.note} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
 

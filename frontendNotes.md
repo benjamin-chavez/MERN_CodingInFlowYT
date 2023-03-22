@@ -25,4 +25,7 @@ mkdir src/styles
 mv src/global.css src/styles/global.css
 touch src/styles/Note.module.css
 
+
+mkdir src/utils
+touch src/utils/formatDate.ts
 ```
