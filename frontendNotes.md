@@ -16,4 +16,13 @@ npm i react-bootstrap bootstrap
 cd frontend
 mkdir src/models
 touch src/models/note.ts
+
+
+mkdir src/components
+touch src/components/Note.tsx
+
+mkdir src/styles
+mv src/global.css src/styles/global.css
+touch src/styles/Note.module.css
+
 ```
