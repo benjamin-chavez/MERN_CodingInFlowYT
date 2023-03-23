@@ -111,3 +111,31 @@ npm i http-errors
 npm i -D @types/http-errors
 
 ```
+
+################################################################################3
+
+```bash
+cd backend
+touch ./src/models/user.ts
+touch ./src/controllers/users.ts
+touch ./src/routes/users.ts
+```
+
+```bash
+npm i bcrypt
+npm i -D @types/bcrypt
+
+# user authentication
+# sessions or jwt tokens are the two options. We will use sessions
+npm i express-session
+npm i -D @types/express-session
+
+# To store session info (redis is a good option for production):
+# Compatible Session Stores: https://www.npmjs.com/package/express-session
+npm i connect-mongo
+
+# For Custom Types:
+# Be sure to update typeRoots and ts-node in your`tsconfig.json` file
+mkdir @types
+touch @types/session.d.ts
+```
