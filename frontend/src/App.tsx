@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 // import { Note } from './models/note';
 import { Note as NoteModel } from './models/note';
 import Note from './components/Note';
@@ -16,13 +16,18 @@ function App() {
 
   // const [notes, setNotes] = useState<Note[]>([]);
   const [notes, setNotes] = useState<NoteModel[]>([]);
+  const [notesLoading, setNotesLoading] = useState(true);
+  const [showNotesLoadingError, setShowNotesLoadingError] = useState(false);
 
-  const [showAddNoteDialog, setShowAddNoteDialog] = useState(true);
+  const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
   const [noteToEdit, setNoteToEdit] = useState<NoteModel | null>(null);
 
   useEffect(() => {
     async function loadNotes() {
       try {
+        setShowNotesLoadingError(false);
+        setNotesLoading(true);
+
         // const response = await fetch('http://localhost:5000/api/notes', {
         // removed localhost portion because we added the proxy to the package.json
         // const response = await fetch('/api/notes', {
@@ -34,7 +39,11 @@ function App() {
         setNotes(notes);
       } catch (error) {
         console.error(error);
-        alert(error);
+
+        // alert(error);
+        setShowNotesLoadingError(true);
+      } finally {
+        setNotesLoading(false);
       }
     }
 
@@ -51,33 +60,45 @@ function App() {
     }
   }
 
+  const notesGrid = (
+    <Row xs={1} md={2} xl={3} className={`g-4 ${styles.notesGrid}`}>
+      {/* {JSON.stringify(notes)} */}
+      {notes.map((note) => (
+        // <Note note={note} key={note._id} />
+        <Col key={note._id}>
+          <Note
+            note={note}
+            className={styles.note}
+            onNoteClicked={setNoteToEdit}
+            // onNoteClicked={(note) => setNoteToEdit(note)}
+            onDeleteNoteClicked={deleteNote}
+          />
+        </Col>
+      ))}
+    </Row>
+  );
+
   return (
-    <Container>
+    <Container className={styles.notesPage}>
+      {/* <Button onClick={() => setClickCount(clickCount + 1)}>
+          Clicked {clickCount} Times
+        </Button> */}
       <Button
         className={`mb-4 ${styleUtils.blockCenter} ${styleUtils.flexCenter}`}
         onClick={() => setShowAddNoteDialog(true)}
       >
         <FaPlus /> Add new note
       </Button>
-      <Row xs={1} md={2} lg={3} className="g-4">
-        {/* <Button onClick={() => setClickCount(clickCount + 1)}>
-          Clicked {clickCount} Times
-        </Button> */}
-        {/* {JSON.stringify(notes)} */}
+      {notesLoading && <Spinner animation="border" variant="primary" />}
+      {showNotesLoadingError && (
+        <p>Something went wrong. Please refresh the page.</p>
+      )}
+      {!notesLoading && !showNotesLoadingError && (
+        <>
+          {notes.length > 0 ? notesGrid : <p>You don't have any notes yet.</p>}
+        </>
+      )}
 
-        {notes.map((note) => (
-          // <Note note={note} key={note._id} />
-          <Col key={note._id}>
-            <Note
-              note={note}
-              className={styles.note}
-              onNoteClicked={setNoteToEdit}
-              // onNoteClicked={(note) => setNoteToEdit(note)}
-              onDeleteNoteClicked={deleteNote}
-            />
-          </Col>
-        ))}
-      </Row>
       {showAddNoteDialog && (
         <AddNoteDialog
           onDismiss={() => setShowAddNoteDialog(false)}
