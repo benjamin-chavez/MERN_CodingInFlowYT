@@ -28,4 +28,10 @@ touch src/styles/Note.module.css
 
 mkdir src/utils
 touch src/utils/formatDate.ts
+
+mkdir src/network
+touch src/network/notes_api.ts
+
+
+npm i react-hook-form
 ```

@@ -5,6 +5,9 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Note as NoteModel } from './models/note';
 import Note from './components/Note';
 import styles from './styles/NotesPage.module.css';
+import styleUtils from './styles/utils.module.css';
+import * as NotesApi from './network/notes_api';
+import AddNoteDialog from './components/AddNoteDialog';
 
 function App() {
   // const [clickCount, setClickCount] = React.useState(0);
@@ -12,15 +15,18 @@ function App() {
   // const [notes, setNotes] = useState<Note[]>([]);
   const [notes, setNotes] = useState<NoteModel[]>([]);
 
+  const [showAddNoteDialog, setShowAddNoteDialog] = useState(true);
+
   useEffect(() => {
     async function loadNotes() {
       try {
         // const response = await fetch('http://localhost:5000/api/notes', {
         // removed localhost portion because we added the proxy to the package.json
-        const response = await fetch('/api/notes', {
-          method: 'GET',
-        });
-        const notes = await response.json();
+        // const response = await fetch('/api/notes', {
+        //   method: 'GET',
+        // });
+        // const notes = await response.json();
+        const notes = await NotesApi.fetchNotes();
 
         setNotes(notes);
       } catch (error) {
@@ -34,6 +40,13 @@ function App() {
 
   return (
     <Container>
+      <Button
+        className={`mb-4 ${styleUtils.blockCenter}`}
+        onClick={() => setShowAddNoteDialog(true)}
+      >
+        {' '}
+        Add new note
+      </Button>
       <Row xs={1} md={2} lg={3} className="g-4">
         {/* <Button onClick={() => setClickCount(clickCount + 1)}>
           Clicked {clickCount} Times
@@ -47,6 +60,15 @@ function App() {
           </Col>
         ))}
       </Row>
+      {showAddNoteDialog && (
+        <AddNoteDialog
+          onDismiss={() => setShowAddNoteDialog(false)}
+          onNoteSaved={(newNote) => {
+            setNotes([...notes, newNote]);
+            setShowAddNoteDialog(false);
+          }}
+        />
+      )}
     </Container>
   );
 }
