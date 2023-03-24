@@ -36,4 +36,9 @@ touch src/network/notes_api.ts
 npm i react-hook-form
 
 npm i react-icons
+
+npm i react-router-dom
+
+mkdir src/pages
+touch src/pages/NotesPage.tsx
 ```
