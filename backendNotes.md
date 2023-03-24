@@ -139,3 +139,8 @@ npm i connect-mongo
 mkdir @types
 touch @types/session.d.ts
 ```
+
+```bash
+mkdir backend/src/middleware
+touch backend/src/middleware/auth.ts
+```

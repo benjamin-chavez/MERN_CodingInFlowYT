@@ -15,7 +15,7 @@ async function fetchData(input: RequestInfo, init?: RequestInit) {
 
 // Cookies are sent automatically because our frontend and backend are on the same url
 export async function getLoggedInUser(): Promise<User> {
-  const response = await fetch('/api/users', { method: 'GET' });
+  const response = await fetchData('/api/users', { method: 'GET' });
 
   return response.json();
 }

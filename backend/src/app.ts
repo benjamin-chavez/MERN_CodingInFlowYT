@@ -8,6 +8,7 @@ import createHttpError, { isHttpError } from 'http-errors';
 import session from 'express-session';
 import env from './util/validateEnv';
 import MongoStore from 'connect-mongo';
+import { requiresAuth } from './middleware/auth';
 
 // app is basically our server
 const app = express();
@@ -28,12 +29,14 @@ app.use(
       maxAge: 60 * 60 * 1000,
     },
     rolling: true,
-    store: MongoStore.create({ mongoUrl: env.MONGO_CONNECTION_STRING }),
+    store: MongoStore.create({
+      mongoUrl: env.MONGO_CONNECTION_STRING,
+    }),
   })
 );
 
 app.use('/api/users', userRoutes);
-app.use('/api/notes', notesRoutes);
+app.use('/api/notes', requiresAuth, notesRoutes);
 
 // Arrow Function - function without a name
 // app.get('/', async (req, res, next) => {

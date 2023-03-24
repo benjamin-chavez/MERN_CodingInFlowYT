@@ -30,8 +30,8 @@ const NavBar = ({
               />
             ) : (
               <NavBarLoggedOutView
-                onSignUpClicked={onSignUpClicked}
                 onLoginClicked={onLoginClicked}
+                onSignUpClicked={onSignUpClicked}
               />
             )}
           </Nav>

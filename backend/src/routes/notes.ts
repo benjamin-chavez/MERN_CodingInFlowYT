@@ -7,7 +7,7 @@ const router = express.Router();
 // app.get('/', NotesController.getNotes);
 router.get('/', NotesController.getNotes); // <= UPDATE `app` TO `router` BECAUSE WE CREATED TEH ROUTER ABOVE^
 router.get('/:noteId', NotesController.getNote);
-router.post('/', NotesController.createNotes);
+router.post('/', NotesController.createNote);
 router.patch('/:noteId', NotesController.updateNote);
 router.delete('/:noteId', NotesController.deleteNote);
 

@@ -11,7 +11,7 @@ import * as NotesApi from './network/notes_api';
 import styles from './styles/NotesPage.module.css';
 
 function App() {
-  const [loggedInUser, setLogedInUser] = useState<User | null>(null);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -20,7 +20,7 @@ function App() {
     async function fetchLoggedInUser() {
       try {
         const user = await NotesApi.getLoggedInUser();
-        setLogedInUser(user);
+        setLoggedInUser(user);
       } catch (error) {
         console.error(error);
       }
@@ -30,12 +30,12 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div>
       <NavBar
         loggedInUser={loggedInUser}
         onLoginClicked={() => setShowLoginModal(true)}
         onSignUpClicked={() => setShowSignUpModal(true)}
-        onLogoutSuccessful={() => setLogedInUser(null)}
+        onLogoutSuccessful={() => setLoggedInUser(null)}
       />
       <Container className={styles.notesPage}>
         <>
@@ -46,7 +46,7 @@ function App() {
         <SignUpModal
           onDismiss={() => setShowSignUpModal(false)}
           onSignUpSuccessful={(user) => {
-            setLogedInUser(user);
+            setLoggedInUser(user);
             setShowSignUpModal(false);
           }}
         />
@@ -56,12 +56,12 @@ function App() {
         <LoginModal
           onDismiss={() => setShowLoginModal(false)}
           onLoginSuccessful={(user) => {
-            setLogedInUser(user);
+            setLoggedInUser(user);
             setShowLoginModal(false);
           }}
         />
       )}
-    </>
+    </div>
   );
 }
 
